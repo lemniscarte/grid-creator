@@ -1,0 +1,88 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body{
+  margin: 10px;
+  padding: 0;
+  background-color: bisque;
+}
+
+.key {
+  background-color: tomato;
+  border-radius: 100%;
+  transition: all ease-in-out 0.3s;
+}
+
+.key:hover {
+  filter: hue-rotate(-90deg);
+}
+
+.container {
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
+}
+
+.container .allOddRows:not(:nth-child(6n+3)):not(:nth-child(6n+4)):not(:nth-child(6n+5)):not(:nth-child(6n)) {
+  background-color: rgb(235, 198, 36);
+}
+
+.container .allEvenRows:not(:nth-child(6n+1)):not(:nth-child(6n+2)):not(:nth-child(6n+3)) {
+  background-color: rgb(235, 198, 36);
+}
+
+.upperLeftCorner {
+  /* background-color: gold; */
+}
+
+.upperRightCorner {
+  /* background-color: yellow; */
+}
+
+.lowerLeftCorner {
+  /* background-color: lightsalmon; */
+}
+
+.lowerRightCorner {
+  /* background-color: lightcoral; */
+}
+
+.allCorners {
+  /* border: 2px firebrick solid; */
+}
+
+.firstRow {
+  /* border-radius: 5px; */
+}
+
+.lastRow {
+  /* border-radius: 0px; */
+}
+
+.firstCol {
+  /* border-radius: 10px; */
+}
+
+.lastCol {
+  /* border-radius: 20px; */
+}
+
+.allOddRows {
+  /* opacity: 1; */
+  transform: translateX(30px);
+}
+
+.allEvenRows {
+  /* opacity: 0.2; */
+}
+
+.allOddCols {
+  /* opacity: 0.9; */
+}
+
+.allEvenCols {
+  /* filter: hue-rotate(90deg); */
+}
