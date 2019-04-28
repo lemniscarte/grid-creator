@@ -11,6 +11,10 @@ body{
   background-color: bisque;
 }
 
+.debugger {
+  font-family: 'Fira Code';
+}
+
 .key {
   background-color: tomato;
   border-radius: 100%;
@@ -24,6 +28,11 @@ body{
 .container {
   grid-column-gap: 10px;
   grid-row-gap: 0px;
+  border: 2px firebrick solid;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 10px;
+  padding-right: 40px;
 }
 
 .container .allOddRows:not(:nth-child(6n+3)):not(:nth-child(6n+4)):not(:nth-child(6n+5)):not(:nth-child(6n)) {
