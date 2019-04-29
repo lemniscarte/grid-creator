@@ -235,40 +235,49 @@ function createGrid(options) {
 
 			// mouse events
 			newElement.addEventListener("mousedown", function(e){
-				playTone(midiToFreq(noteIndex), true)
+				playTone(midiToFreq(noteIndex), true);
+				e.preventDefault();
 			}, false);
 
 			newElement.addEventListener("mouseup", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			newElement.addEventListener("mouseout", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			newElement.addEventListener("mouseleave", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			// touch events
 			newElement.addEventListener("touchstart", function(e){
-				playTone(midiToFreq(noteIndex), true)
+				playTone(midiToFreq(noteIndex), true);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchend", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchmove", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchcancel", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchleave", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			noteAccum += 1;
@@ -283,40 +292,49 @@ function createGrid(options) {
 
 			// mouse events
 			newElement.addEventListener("mousedown", function(e){
-				playTone(midiToFreq(noteIndex), true)
+				playTone(midiToFreq(noteIndex), true);
+				e.preventDefault();
 			}, false);
 
 			newElement.addEventListener("mouseup", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			newElement.addEventListener("mouseout", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			newElement.addEventListener("mouseleave", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			// touch events
 			newElement.addEventListener("touchstart", function(e){
-				playTone(midiToFreq(noteIndex), true)
+				playTone(midiToFreq(noteIndex), true);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchend", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchmove", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchcancel", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 			
 			newElement.addEventListener("touchleave", function(e){
-				playTone(midiToFreq(noteIndex), false)
+				playTone(midiToFreq(noteIndex), false);
+				e.preventDefault();
 			}, false);
 
 			noteAccum += 1;
