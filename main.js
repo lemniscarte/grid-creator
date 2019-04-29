@@ -1,24 +1,3 @@
-// debugging for coordinates
-
-let debugText = "COORDINATES GO HERE";
-let debugDiv = document.createElement("div");
-let gridElement = document.getElementsByClassName("grid")[0];
-debugDiv.innerHTML = debugText;
-
-debugDiv.className = "debugger";
-
-document.body.addEventListener("mousemove", function(e){
-	debugText = e.pageX.toString() + ' x ' + e.pageY.toString();
-	debugDiv.innerHTML = debugText;
-}, false);
-
-document.body.addEventListener("touchstart", function(e){
-	debugText = e.pageX.toString() + ' x ' + e.pageY.toString();
-	debugDiv.innerHTML = debugText;
-}, false);
-
-gridElement.appendChild(debugDiv);
-
 // formula to convert MIDInote to herz
 function midiToFreq(midiNote){
 	let midi = [];
@@ -183,7 +162,6 @@ function createGrid(options) {
 	containerElement.style.display = "grid";
 	containerElement.style.gridTemplateColumns = `repeat(${w}, ${cw}px)`;
 	containerElement.style.gridTemplateRows = `repeat(${h}, ${ch}px)`;
-	
 
 	// just in case I need it
 	let allArrays = [
@@ -288,6 +266,10 @@ function createGrid(options) {
 			newElement.addEventListener("touchcancel", function(e){
 				playTone(midiToFreq(noteIndex), false)
 			}, false);
+			
+			newElement.addEventListener("touchleave", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
 
 			noteAccum += 1;
 		};
@@ -332,6 +314,10 @@ function createGrid(options) {
 			newElement.addEventListener("touchcancel", function(e){
 				playTone(midiToFreq(noteIndex), false)
 			}, false);
+			
+			newElement.addEventListener("touchleave", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
 
 			noteAccum += 1;
     };
@@ -369,7 +355,8 @@ function createGrid(options) {
   // All Even rows: ${allEvenRows}
   // All Odd cols: ${allOddCols}
 	// All Even cols: ${allEvenCols}
-	// All arrays in one: ${allArrays}`;
+	// All arrays in one: ${allArrays}
+	// `;
 };
 
 let audioContext = new (window.AudioContext || window.webkitAudioContext);
