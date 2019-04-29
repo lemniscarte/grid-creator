@@ -8,10 +8,9 @@ function midiToFreq(midiNote){
 	return midi[midiNote];
 };
 
+// play tone from converted MIDInote, using vanilla web audio
 function playTone(freq, isOn) {
-	if (isOn === undefined) {
-		isOn = true;
-	}
+	if (isOn === undefined) { isOn = true };
 
 	if (isOn) {
 		osc = audioContext.createOscillator();
@@ -24,11 +23,13 @@ function playTone(freq, isOn) {
 		// osc.disconnect(envelope);
 		osc.disconnect(audioContext.destination);
 		osc = null;
-	}
+	};
 };
 
+// ok, here we go
 function createGrid(options) {
 
+	let containerName = options.containerName;
   let w = options.w;
   let h = options.h;
   let cw = options.cw;
@@ -39,15 +40,37 @@ function createGrid(options) {
 	let baseNote = options.baseNote;
 	let hueRotation = options.hueRotation;
 	let baseHue = options.baseHue;
+	let oddRowOffset = options.oddRowOffset;
+	let gridColumnGap = options.gridColumnGap;
+	let gridRowGap = options.gridRowGap;
+	let containerBorder = options.containerBorder;
+	let borderRadius = options.borderRadius;
+	let containerPadding = options.containerPadding;
+	let whiteKeys = options.whiteKeys;
+	let blackKeys = options.blackKeys;
+	let cellBorderRadius = options.cellBorderRadius;
+	let hoverHueRotation = options.hoverHueRotation;
 
-	// w = cells on x axis
-	// h = cells on y axis
+	// containerName = pick the class name for the containing div
+	// w = how many cells on x axis
+	// h = how many cells on y axis
 	// cw = cell width ('px' is added in the function)
 	// ch = cell height ('px' is added in the function)
 	// tag = what tag to make cells as (div, button, a, etc)
 	// root = what element to attach cell grid to (div, html, body, etc)
 	// baseClass = class all cells should have ('keys', 'gridBtn', etc)
-	// baseNote = pick the lowest note in the grid
+	// baseNote = pick the lowest note in the grid, in MIDInote
+	// hueRotation = after an octave (12 semitones), should the extra keys' hue rotate?
+	// baseHue = rotate the hue of the base color
+	// gridColumnGap = horizontal gap between cells
+	// gridRowGap = vertical gap between cells
+	// containerBorder = border of containing div in (Xpx, style, color) format
+	// borderRadius = rounded borders? sure!
+	// containerPadding = padding of containing div
+	// whiteKeys = color for white keys
+	// blackKeys = color for black keys
+	// cellBorderRadius = border radius for cells
+	// hoverHueRotation = hue rotation for hover on cells
 
 	let totalCells = w * h;
 
@@ -102,7 +125,7 @@ function createGrid(options) {
 		}
 	}
 
-	//these are put together as 2d arrays, but I only use them after flattening
+	//these are put together as 2d arrays, but so far I only use them after flattening
 	for (i = 0; i < numsInOddRows.length; i++) {
 		let oddRow = [];
 		for (j = numsInOddRows[i]; j < numsInOddRows[i] + w; j++) {
@@ -133,7 +156,7 @@ function createGrid(options) {
 		}
 	}
 
-  //these are put together as 2d arrays, but I only use them after flattening
+  //these are put together as 2d arrays, but so far I only use them after flattening
 	for (i = 0; i < numsInOddCols.length; i++) {
 		let oddCol = [];
 		for (j = numsInOddCols[i], accum = j; j < numsInOddCols[i] + h; j++) {
@@ -160,11 +183,20 @@ function createGrid(options) {
 	let rootElement = document.getElementsByClassName(root)[0];
 
 	let containerElement = document.createElement("div");
-	containerElement.className = "container";
+
+	// adding classes to the cointaining div
+	containerElement.className = containerName;
 	containerElement.style.display = "grid";
-	containerElement.style.filter = `hue-rotate(${baseHue}deg)`;
+	containerElement.style.width = `fit-content`;
 	containerElement.style.gridTemplateColumns = `repeat(${w}, ${cw}px)`;
 	containerElement.style.gridTemplateRows = `repeat(${h}, ${ch}px)`;
+	containerElement.style.gridColumnGap = `${gridColumnGap}px`;
+	containerElement.style.gridRowGap = `${gridRowGap}px`;
+	containerElement.style.border = `${containerBorder}`;
+	containerElement.style.borderRadius = `${borderRadius}px`;
+	containerElement.style.padding = `${containerPadding}px`;
+	containerElement.style.paddingRight = `${oddRowOffset/2 + cw/2}px`;
+	containerElement.style.filter = `hue-rotate(${baseHue}deg)`;
 
 	// just in case I need it
 	let allArrays = [
@@ -198,6 +230,7 @@ function createGrid(options) {
 		newElement.style.height = `${ch}px`;
 		newElement.className = baseClass;
 		newElement.classList.add([i]);
+		newElement.style.borderRadius = `${cellBorderRadius}`;
 		newElement.setAttribute("draggable", "false");
 
     //specific classes
@@ -231,12 +264,24 @@ function createGrid(options) {
 		
     if (allOddRows.includes(i)) {
 			newElement.classList.add("allOddRows");
+			newElement.style.transform = `translateX(${oddRowOffset}px)`;
 			
-			// pertaining to MIDInotes
 			let helperIndex = (i % (2 * w));
+
+			let helperWhiteKeys = [3, 4, 5, 6, 9, 10, 11, 12];
+			let helperBlackKeys = [1, 2, 7, 8];
+
 			if (helperIndex > 12) {
 				newElement.style.filter = `hue-rotate(${hueRotation}deg)`;
 			};
+
+			if (helperWhiteKeys.includes(helperIndex % 12 == 0 ? 12 : helperIndex % 12)) {
+				newElement.style.backgroundColor = `${whiteKeys}`;
+			}
+			if (helperBlackKeys.includes(helperIndex % 12 == 0 ? 12 : helperIndex % 12)) {
+				newElement.style.backgroundColor = `${blackKeys}`;
+			};
+
 			let noteIndex = helperIndex + baseNote + (noteAccum % w);
 
 			// mouse events
@@ -292,11 +337,22 @@ function createGrid(options) {
     if (allEvenRows.includes(i)) {
 			newElement.classList.add("allEvenRows");
 
-			// pertaining to MIDInotes
 			let helperIndex = (i - w) % (2 * w);
+
+			let helperWhiteKeys = [1, 2, 3, 7, 8, 9];
+			let helperBlackKeys = [4, 5, 6, 10, 11, 12];
+
 			if (helperIndex > 12) {
 				newElement.style.filter = `hue-rotate(${hueRotation}deg)`;
 			};
+
+			if (helperWhiteKeys.includes(helperIndex % 12 == 0 ? 12 : helperIndex % 12)) {
+				newElement.style.backgroundColor = `${whiteKeys}`;
+			}
+			if (helperBlackKeys.includes(helperIndex % 12 == 0 ? 12 : helperIndex % 12)) {
+				newElement.style.backgroundColor = `${blackKeys}`;
+			};
+
 			let noteIndex = helperIndex + baseNote + (noteAccum % w) - 1;
 			
 			// mouse events
@@ -360,30 +416,16 @@ function createGrid(options) {
 
 	rootElement.appendChild(containerElement);
 
-	// uncomment for debugging (or method chaining)
-	
-	// return `
-  // Attach to: ${rootElement}
-  // Total cells: ${totalCells}
-  // Tota cells array: ${totalCellsArray}
-  // UL corner: ${upperLeftCorner}
-  // UR corner: ${upperRightCorner}
-  // LL corner: ${lowerLeftCorner}
-  // LR corner: ${lowerRightCorner}
-  // First row: ${firstRow}
-  // Last row: ${lastRow}
-  // First col: ${firstCol}
-  // Last col: ${lastCol}
-  // Odd rows: ${oddRows}
-  // Even rows: ${evenRows}
-  // Odd cols: ${oddCols}
-  // Even cols: ${evenCols}
-  // All Odd rows: ${allOddRows}
-  // All Even rows: ${allEvenRows}
-  // All Odd cols: ${allOddCols}
-	// All Even cols: ${allEvenCols}
-	// All arrays in one: ${allArrays}
-	// `;
+	var hover = `.${baseClass}:hover{ filter: hue-rotate(${hoverHueRotation}deg) !important; }`;
+	var style = document.createElement('style');
+
+	if (style.styleSheet) {
+			style.styleSheet.cssText = hover;
+	} else {
+			style.appendChild(document.createTextNode(hover));
+	}
+
+	document.getElementsByTagName('head')[0].appendChild(style);
 };
 
 let audioContext = new (window.AudioContext || window.webkitAudioContext);
@@ -397,41 +439,81 @@ let osc = null;
 // });
 // envelope.connect(audioContext.destination);
 
-createGrid({
-  "w": 18,
-  "h": 4,
-  "cw": 50,
-  "ch": 50,
-  "tag": "div",
-  "root": "grid",
-	"baseClass": "key",
-	"baseNote": 84,
-	"hueRotation": 0,
-	"baseHue": -60
-});
+window.onload = function() {
+	// Page loaded
+	let testDiv = document.getElementsByClassName("grid")[0];
+	console.log(testDiv)
+	testDiv.innerHTML = "test";
 
-createGrid({
-  "w": 18,
-  "h": 4,
-  "cw": 50,
-  "ch": 50,
-  "tag": "div",
-  "root": "grid",
-	"baseClass": "key",
-	"baseNote": 60,
-	"hueRotation": 0,
-	"baseHue": -30
-});
-
-createGrid({
-  "w": 18,
-  "h": 4,
-  "cw": 50,
-  "ch": 50,
-  "tag": "div",
-  "root": "grid",
-	"baseClass": "key",
-	"baseNote": 36,
-	"hueRotation": 0,
-	"baseHue": 0
-});
+	createGrid({
+		"containerName": "container1",
+		"w": 18,
+		"h": 4,
+		"cw": 50,
+		"ch": 50,
+		"tag": "div",
+		"root": "grid",
+		"baseClass": "key",
+		"baseNote": 84,
+		"whiteKeys": "hsl(9, 100%, 64%)",
+		"blackKeys": "hsl(49, 83%, 53%)",
+		"hueRotation": 0,
+		"baseHue": 0,
+		"oddRowOffset": 30,
+		"gridColumnGap": 10,
+		"gridRowGap": 0,
+		"containerBorder": "2px firebrick solid",
+		"borderRadius": 10,
+		"containerPadding": 10,
+		"cellBorderRadius": "100%",
+		"hoverHueRotation": -200
+	});
+	
+	createGrid({
+		"containerName": "container2",
+		"w": 18,
+		"h": 4,
+		"cw": 50,
+		"ch": 50,
+		"tag": "div",
+		"root": "grid",
+		"baseClass": "key2",
+		"baseNote": 60,
+		"whiteKeys": "hsl(9, 100%, 64%)",
+		"blackKeys": "hsl(49, 83%, 53%)",
+		"hueRotation": 0,
+		"baseHue": -30,
+		"oddRowOffset": 30,
+		"gridColumnGap": 10,
+		"gridRowGap": 0,
+		"containerBorder": "2px firebrick solid",
+		"borderRadius": 10,
+		"containerPadding": 10,
+		"cellBorderRadius": "100%",
+		"hoverHueRotation": -150
+	});
+	
+	createGrid({
+		"containerName": "container3",
+		"w": 18,
+		"h": 6,
+		"cw": 50,
+		"ch": 50,
+		"tag": "div",
+		"root": "grid",
+		"baseClass": "key3",
+		"baseNote": 36,
+		"whiteKeys": "hsl(9, 100%, 64%)",
+		"blackKeys": "hsl(49, 83%, 53%)",
+		"hueRotation": 0,
+		"baseHue": -60,
+		"oddRowOffset": 30,
+		"gridColumnGap": 10,
+		"gridRowGap": 0,
+		"containerBorder": "2px firebrick solid",
+		"borderRadius": 10,
+		"containerPadding": 10,
+		"cellBorderRadius": "100%",
+		"hoverHueRotation": -100
+	});
+};

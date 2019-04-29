@@ -11,37 +11,26 @@ body{
   background-color: bisque;
 }
 
-.debugger {
-  font-family: 'Fira Code';
-}
-
 .key {
-  background-color: tomato;
-  border-radius: 100%;
-  transition: all ease-in-out 0.3s;
+  /* background-color: hsl(155, 100%, 64%); */
+  /* transition: ease-in-out 0.05s; */
 }
 
 .key:hover {
-  filter: hue-rotate(-90deg);
+  /* filter: hue-rotate(-200deg) !important; */
 }
 
 .container {
-  grid-column-gap: 10px;
-  grid-row-gap: 0px;
-  border: 2px firebrick solid;
-  border-radius: 10px;
-  width: fit-content;
-  padding: 10px;
-  padding-right: 40px;
+  /* general ? unused as is, since I'm renaming containers dynamically */
 }
 
-.container .allOddRows:not(:nth-child(6n+3)):not(:nth-child(6n+4)):not(:nth-child(6n+5)):not(:nth-child(6n)) {
+/* .allOddRows:not(:nth-child(6n+3)):not(:nth-child(6n+4)):not(:nth-child(6n+5)):not(:nth-child(6n)) {
   background-color: rgb(235, 198, 36);
 }
 
-.container .allEvenRows:not(:nth-child(6n+1)):not(:nth-child(6n+2)):not(:nth-child(6n+3)) {
+.allEvenRows:not(:nth-child(6n+1)):not(:nth-child(6n+2)):not(:nth-child(6n+3)) {
   background-color: rgb(235, 198, 36);
-}
+} */
 
 .upperLeftCorner {
   /* background-color: gold; */
@@ -80,12 +69,11 @@ body{
 }
 
 .allOddRows {
-  /* opacity: 1; */
-  transform: translateX(30px);
+  /* transform: translateX(30px); */
 }
 
 .allEvenRows {
-  /* opacity: 0.2; */
+  /* opacity: 0.6; */
 }
 
 .allOddCols {
