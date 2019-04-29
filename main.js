@@ -224,7 +224,7 @@ function createGrid(options) {
   
 	// loop through all the cells and
 	// add general styles and classes,
-	// add event listeners for playtone,
+	// add event listeners for clicks/taps -> playtone(),
 	// add specific classes
 	for (i = 1; i <= totalCellsArray.length; i++) {
     let newElement = document.createElement(tag);
@@ -312,10 +312,41 @@ function createGrid(options) {
 			newElement.classList.add("allOddRows");
 			
 			// pertaining to MIDInotes
-			let noteIndex = (i % (2 * w)) + baseNote + (noteAccum % w);
+			let helperIndex = (i % (2 * w));
+			let noteIndex = helperIndex + baseNote + (noteAccum % w);
 
-			newElement.addEventListener("mouseover", function(e){
+			// mouse events
+			newElement.addEventListener("mousedown", function(e){
 				playTone(midiToFreq(noteIndex), true)
+			}, false);
+
+			newElement.addEventListener("mouseup", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+
+			newElement.addEventListener("mouseout", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+
+			newElement.addEventListener("mouseleave", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+
+			// touch events
+			newElement.addEventListener("touchstart", function(e){
+				playTone(midiToFreq(noteIndex), true)
+			}, false);
+			
+			newElement.addEventListener("touchend", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+			
+			newElement.addEventListener("touchmove", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+			
+			newElement.addEventListener("touchcancel", function(e){
+				playTone(midiToFreq(noteIndex), false)
 			}, false);
 
 			noteAccum += 1;
@@ -325,10 +356,41 @@ function createGrid(options) {
 			newElement.classList.add("allEvenRows");
 
 			// pertaining to MIDInotes
-			let noteIndex = ((i % (2 * w)) == 0 ? (2 * w - 1) : (i % (2 * w)) - 1) + baseNote + (noteAccum % w) - w;
+			let helperIndex = (i % (2 * w));
+			let noteIndex = (helperIndex == 0 ? (2 * w - 1) : helperIndex - 1) + baseNote + (noteAccum % w) - w;
 
-			newElement.addEventListener("mouseover", function(e){
+			// mouse events
+			newElement.addEventListener("mousedown", function(e){
 				playTone(midiToFreq(noteIndex), true)
+			}, false);
+
+			newElement.addEventListener("mouseup", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+
+			newElement.addEventListener("mouseout", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+
+			newElement.addEventListener("mouseleave", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+
+			// touch events
+			newElement.addEventListener("touchstart", function(e){
+				playTone(midiToFreq(noteIndex), true)
+			}, false);
+			
+			newElement.addEventListener("touchend", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+			
+			newElement.addEventListener("touchmove", function(e){
+				playTone(midiToFreq(noteIndex), false)
+			}, false);
+			
+			newElement.addEventListener("touchcancel", function(e){
+				playTone(midiToFreq(noteIndex), false)
 			}, false);
 
 			noteAccum += 1;
