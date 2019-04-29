@@ -37,6 +37,8 @@ function createGrid(options) {
   let root = options.root;
 	let baseClass = options.baseClass;
 	let baseNote = options.baseNote;
+	let hueRotation = options.hueRotation;
+	let baseHue = options.baseHue;
 
 	// w = cells on x axis
 	// h = cells on y axis
@@ -160,6 +162,7 @@ function createGrid(options) {
 	let containerElement = document.createElement("div");
 	containerElement.className = "container";
 	containerElement.style.display = "grid";
+	containerElement.style.filter = `hue-rotate(${baseHue}deg)`;
 	containerElement.style.gridTemplateColumns = `repeat(${w}, ${cw}px)`;
 	containerElement.style.gridTemplateRows = `repeat(${h}, ${ch}px)`;
 
@@ -231,53 +234,56 @@ function createGrid(options) {
 			
 			// pertaining to MIDInotes
 			let helperIndex = (i % (2 * w));
+			if (helperIndex > 12) {
+				newElement.style.filter = `hue-rotate(${hueRotation}deg)`;
+			};
 			let noteIndex = helperIndex + baseNote + (noteAccum % w);
 
 			// mouse events
 			newElement.addEventListener("mousedown", function(e){
-				playTone(midiToFreq(noteIndex), true);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), true);
 			}, false);
 
 			newElement.addEventListener("mouseup", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			newElement.addEventListener("mouseout", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			newElement.addEventListener("mouseleave", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			// touch events
 			newElement.addEventListener("touchstart", function(e){
-				playTone(midiToFreq(noteIndex), true);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), true);
 			}, false);
 			
 			newElement.addEventListener("touchend", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
 			newElement.addEventListener("touchmove", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
 			newElement.addEventListener("touchcancel", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
 			newElement.addEventListener("touchleave", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			noteAccum += 1;
@@ -287,54 +293,57 @@ function createGrid(options) {
 			newElement.classList.add("allEvenRows");
 
 			// pertaining to MIDInotes
-			let helperIndex = (i % (2 * w));
-			let noteIndex = (helperIndex == 0 ? (2 * w - 1) : helperIndex - 1) + baseNote + (noteAccum % w) - w;
-
+			let helperIndex = (i - w) % (2 * w);
+			if (helperIndex > 12) {
+				newElement.style.filter = `hue-rotate(${hueRotation}deg)`;
+			};
+			let noteIndex = helperIndex + baseNote + (noteAccum % w) - 1;
+			
 			// mouse events
 			newElement.addEventListener("mousedown", function(e){
-				playTone(midiToFreq(noteIndex), true);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), true);
 			}, false);
 
 			newElement.addEventListener("mouseup", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			newElement.addEventListener("mouseout", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			newElement.addEventListener("mouseleave", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			// touch events
 			newElement.addEventListener("touchstart", function(e){
-				playTone(midiToFreq(noteIndex), true);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), true);
 			}, false);
 			
 			newElement.addEventListener("touchend", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
 			newElement.addEventListener("touchmove", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
 			newElement.addEventListener("touchcancel", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
 			newElement.addEventListener("touchleave", function(e){
-				playTone(midiToFreq(noteIndex), false);
 				e.preventDefault();
+				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			noteAccum += 1;
@@ -396,7 +405,9 @@ createGrid({
   "tag": "div",
   "root": "grid",
 	"baseClass": "key",
-	"baseNote": 84
+	"baseNote": 84,
+	"hueRotation": 0,
+	"baseHue": -60
 });
 
 createGrid({
@@ -407,7 +418,9 @@ createGrid({
   "tag": "div",
   "root": "grid",
 	"baseClass": "key",
-	"baseNote": 60
+	"baseNote": 60,
+	"hueRotation": 0,
+	"baseHue": -30
 });
 
 createGrid({
@@ -418,5 +431,7 @@ createGrid({
   "tag": "div",
   "root": "grid",
 	"baseClass": "key",
-	"baseNote": 36
+	"baseNote": 36,
+	"hueRotation": 0,
+	"baseHue": 0
 });
