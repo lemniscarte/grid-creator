@@ -285,48 +285,53 @@ function createGrid(options) {
 			let noteIndex = helperIndex + baseNote + (noteAccum % w);
 
 			// mouse events
-			newElement.addEventListener("mousedown", function(e){
+			newElement.addEventListener("mouseover", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), true);
 			}, false);
 
-			newElement.addEventListener("mouseup", function(e){
+			newElement.addEventListener("mousedown", function(e) {
+				e.preventDefault();
+				playTone(midiToFreq(noteIndex), true);
+			}, false);
+
+			newElement.addEventListener("mouseup", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
-			newElement.addEventListener("mouseout", function(e){
+			newElement.addEventListener("mouseout", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
-			newElement.addEventListener("mouseleave", function(e){
+			newElement.addEventListener("mouseleave", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			// touch events
-			newElement.addEventListener("touchstart", function(e){
+			newElement.addEventListener("touchstart", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), true);
 			}, false);
 			
-			newElement.addEventListener("touchend", function(e){
+			newElement.addEventListener("touchend", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
-			newElement.addEventListener("touchmove", function(e){
+			newElement.addEventListener("touchmove", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
-			newElement.addEventListener("touchcancel", function(e){
+			newElement.addEventListener("touchcancel", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
-			newElement.addEventListener("touchleave", function(e){
+			newElement.addEventListener("touchleave", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
@@ -356,48 +361,53 @@ function createGrid(options) {
 			let noteIndex = helperIndex + baseNote + (noteAccum % w) - 1;
 			
 			// mouse events
-			newElement.addEventListener("mousedown", function(e){
+			newElement.addEventListener("mouseover", function(e) {
+				e.preventDefault();
+				playTone(midiToFreq(noteIndex), true);
+			}, false);
+			
+			newElement.addEventListener("mousedown", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), true);
 			}, false);
 
-			newElement.addEventListener("mouseup", function(e){
+			newElement.addEventListener("mouseup", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
-			newElement.addEventListener("mouseout", function(e){
+			newElement.addEventListener("mouseout", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
-			newElement.addEventListener("mouseleave", function(e){
+			newElement.addEventListener("mouseleave", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 
 			// touch events
-			newElement.addEventListener("touchstart", function(e){
+			newElement.addEventListener("touchstart", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), true);
 			}, false);
 			
-			newElement.addEventListener("touchend", function(e){
+			newElement.addEventListener("touchend", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
-			newElement.addEventListener("touchmove", function(e){
+			newElement.addEventListener("touchmove", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
-			newElement.addEventListener("touchcancel", function(e){
+			newElement.addEventListener("touchcancel", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
 			
-			newElement.addEventListener("touchleave", function(e){
+			newElement.addEventListener("touchleave", function(e) {
 				e.preventDefault();
 				playTone(midiToFreq(noteIndex), false);
 			}, false);
@@ -441,9 +451,9 @@ let osc = null;
 
 window.onload = function() {
 	// Page loaded
-	let testDiv = document.getElementsByClassName("grid")[0];
-	console.log(testDiv)
-	testDiv.innerHTML = "test";
+	// let testDiv = document.getElementsByClassName("grid")[0];
+	// console.log(testDiv)
+	// testDiv.innerHTML = "test";
 
 	createGrid({
 		"containerName": "container1",
@@ -453,7 +463,7 @@ window.onload = function() {
 		"ch": 50,
 		"tag": "div",
 		"root": "grid",
-		"baseClass": "key",
+		"baseClass": "key1",
 		"baseNote": 84,
 		"whiteKeys": "hsl(9, 100%, 64%)",
 		"blackKeys": "hsl(49, 83%, 53%)",

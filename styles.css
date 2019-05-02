@@ -20,8 +20,28 @@ body{
   /* filter: hue-rotate(-200deg) !important; */
 }
 
-.container {
+.container1 {
+  background-color: black;
   /* general ? unused as is, since I'm renaming containers dynamically */
+}
+.container1 > .key1 {
+  opacity: 0.9;
+}
+
+.container2 {
+  background-color: black;
+  /* general ? unused as is, since I'm renaming containers dynamically */
+}
+.container2 > .key2 {
+  opacity: 0.9;
+}
+
+.container3 {
+  background-color: black;
+  /* general ? unused as is, since I'm renaming containers dynamically */
+}
+.container3 > .key3 {
+  opacity: 0.9;
 }
 
 /* .allOddRows:not(:nth-child(6n+3)):not(:nth-child(6n+4)):not(:nth-child(6n+5)):not(:nth-child(6n)) {
